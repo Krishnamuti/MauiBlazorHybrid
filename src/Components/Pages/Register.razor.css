@@ -1,0 +1,70 @@
+﻿body {
+    overflow-x: hidden;
+}
+
+.bg-image {
+    background-image: url('../images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.login {
+    min-height: 100vh;
+}
+
+.bg-light {
+    background-color: #dedede !important;
+}
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+    .btn-primary:hover {
+        background-color: #2e59d9;
+        border-color: #2653d4;
+    }
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #4e73df;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+h3.display-4 {
+    font-weight: 300;
+    color: #4e73df;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+}
+
+.form-control {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .form-control:focus {
+        border-color: #4e73df;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+
+@media (max-width: 767.98px) {
+    .bg-image {
+        display: none;
+    }
+}

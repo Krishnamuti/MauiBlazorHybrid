@@ -1,0 +1,10 @@
+﻿@inject NavigationManager navigationManager
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Redirect to the login page and preserve the return URL
+        var returnUrl = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+        navigationManager.NavigateTo($"./login?returnUrl={returnUrl}", forceLoad: true);
+    }
+}

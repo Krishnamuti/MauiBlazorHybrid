@@ -1,0 +1,29 @@
+﻿@using MauiHybridAuthentication.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider authenticationStateProvider
+
+<div class="welcome-message mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <AuthorizeView>
+                <Authorized>
+                    <h2>Welcome, <span id="username">@context.User.Identity.Name</span>!</h2>
+                </Authorized>
+            </AuthorizeView>
+
+            
+            <p class="text-muted">Manage user accounts below</p>
+        </div>
+        <button @onclick="Logout" class="btn btn-logout">
+            <i class="bi bi-box-arrow-right me-2"></i>Logout
+        </button>
+    </div>
+</div>
+
+@code {
+    private async Task Logout()
+    {
+        var customAuthenticationStateProvider = (CustomAuthenticationStateProvider)authenticationStateProvider;
+        await customAuthenticationStateProvider.UpdateAuthenticationState(null);
+    }
+}

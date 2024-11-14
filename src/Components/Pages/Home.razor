@@ -1,0 +1,76 @@
+﻿@page "/"
+@using MauiHybridAuthentication.Components.Pages.HomeComponents
+@using MauiHybridAuthentication.Entities
+@using MauiHybridAuthentication.Repositories
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject UserAccountRepository userAccountRepository
+@attribute [Authorize]
+
+<div class="container mt-5">
+    <HomeHeader />
+    
+    <div class="card shadow">
+        <div class="card-body px-0 py-3">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <AuthorizeView Roles="Administrator">
+                                <Authorized>
+                                    <th>Actions</th>
+                                </Authorized>
+                            </AuthorizeView>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(userAccounts?.Any() ?? false)
+                        {
+                            @foreach (var userAccount in userAccounts)
+                            {
+                                <tr>
+                                    <td class="align-middle">@userAccount.FirstName</td>
+                                    <td class="align-middle">@userAccount.LastName</td>
+                                    <td class="align-middle">@userAccount.UserName</td>
+                                    <td class="align-middle">@userAccount.Role</td>
+                                    <AuthorizeView Roles="Administrator">
+                                        <Authorized>
+                                            <td class="align-middle">
+                                                <button @onclick="@(() => Delete(userAccount))" class="btn btn-sm btn-outline-danger me-1"><i class="bi bi-trash"></i></button>
+                                            </td>
+                                        </Authorized>
+                                    </AuthorizeView>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+    private List<UserAccount>? userAccounts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await LoadUsers();
+    }
+
+    private async Task LoadUsers()
+    {
+        userAccounts = await userAccountRepository.Get();
+    }
+
+    private async Task Delete(UserAccount userAccount)
+    {
+        await userAccountRepository.Delete(userAccount);
+        await LoadUsers();
+    }
+}
